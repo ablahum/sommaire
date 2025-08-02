@@ -1,4 +1,5 @@
 'use client'
+
 import { z } from 'zod'
 import UploadFormInput from './upload-form-input'
 import { useUploadThing } from '@/utils/uploadthing'
@@ -45,7 +46,6 @@ export default function UploadForm() {
       const formData = new FormData(e.currentTarget)
       const file = formData.get('file') as File
       const validatedFields = schema.safeParse({ file })
-      console.log(validatedFields)
 
       if (!validatedFields.success) {
         toast.error('❌ Something went wrong', {
