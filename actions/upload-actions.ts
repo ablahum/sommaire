@@ -59,7 +59,7 @@ export async function generatePdfSummary({ fileUrl, fileName }: { fileUrl: strin
 
           summary = await generateSummaryFromOpenAI(pdfText)
 
-          console.log(summary)
+          // console.log(summary)
         } catch (openAIError) {
           console.error('OpenAI API also failed:', openAIError)
 
