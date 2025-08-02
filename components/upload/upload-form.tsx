@@ -1,9 +1,10 @@
 'use client'
+
 import { z } from 'zod'
 import UploadFormInput from './upload-form-input'
 import { useUploadThing } from '@/utils/uploadthing'
 import { toast } from 'sonner'
-import { generatePdfSummary, storePdfSummaryAction } from '@/actions/upload-actions'
+import { generatePdfSummary } from '@/actions/upload-actions'
 import { useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -45,7 +46,6 @@ export default function UploadForm() {
       const formData = new FormData(e.currentTarget)
       const file = formData.get('file') as File
       const validatedFields = schema.safeParse({ file })
-      console.log(validatedFields)
 
       if (!validatedFields.success) {
         toast.error('❌ Something went wrong', {
