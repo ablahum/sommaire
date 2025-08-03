@@ -10,7 +10,7 @@ const openAI = new OpenAI({
 export async function generateSummaryFromOpenAI(pdfText: string) {
   try {
     const completion = await openAI.chat.completions.create({
-      model: 'gpt-3.5-turbo', // Ganti dari 'gpt-4' ke 'gpt-3.5-turbo'
+      model: 'gpt-3.5-turbo',
       messages: [
         {
           role: 'system',

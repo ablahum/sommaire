@@ -1,4 +1,3 @@
-// components/plan-badge.tsx
 'use client'
 
 import { useUser } from '@clerk/nextjs'
