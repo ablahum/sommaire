@@ -5,6 +5,7 @@ export async function getSummaries(userId: string) {
   const summaries = await sql`SELECT * from pdf_summaries
     WHERE user_id=${userId}
     ORDER BY created_at DESC`
+
   return summaries
 }
 
@@ -29,7 +30,8 @@ export async function getSummaryById(id: string) {
     `
     return summary
   } catch (err) {
-    console.log('Error fetching Summary By id', err)
+    console.log('Error fetching Summary by id', err)
+
     return null
   }
 }
