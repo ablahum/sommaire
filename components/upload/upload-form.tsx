@@ -4,7 +4,7 @@ import { z } from 'zod'
 import UploadFormInput from './upload-form-input'
 import { useUploadThing } from '@/utils/uploadthing'
 import { toast } from 'sonner'
-import { generatePdfSummary } from '@/actions/upload-actions'
+import { generatePdfSummary, storePdfSummaryAction } from '@/actions/upload-actions'
 import { useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -80,32 +80,34 @@ export default function UploadForm() {
         fileName: file.name
       })
 
-      // const { data = null, message = null } = summary || {}
+      const { data = null, message = null } = summary || {}
 
-      // if (data) {
-      //   let storeResult: any
-      //   toast('📑 Saving PDF', {
-      //     description: 'Hang tight! We are Saving your Summary! 💫'
-      //   })
+      if (data) {
+        let storeResult: any
 
-      //   if (data.summary) {
-      //     //save the summary to the database
-      //     storeResult = await storePdfSummaryAction({
-      //       summary: data.summary,
-      //       fileUrl: uploadFileUrl,
-      //       title: data.title,
-      //       fileName: file.name
-      //     })
-      //     toast('🤩 Summary Generated', {
-      //       description: 'Your PDF has been Successfully summarized and saved! 💫'
-      //     })
-      //     formRef.current?.reset()
-      //     // Step 6: redirect summary to the user
-      //     router.push(`/summaries/${storeResult.data.id}`)
-      //   }
-      // }
-    } catch (error) {
+        toast('📑 Saving PDF', {
+          description: 'Hang tight! We are Saving your Summary! 💫'
+        })
+
+        if (data.summary) {
+          storeResult = await storePdfSummaryAction({
+            summary: data.summary,
+            fileUrl: uploadFileUrl,
+            title: data.title,
+            fileName: file.name
+          })
+
+          toast('🤩 Summary Generated', {
+            description: 'Your PDF has been successfully summarized and saved! 💫'
+          })
+
+          formRef.current?.reset()
+          router.push(`/summaries/${storeResult.data.id}`)
+        }
+      }
+    } catch (err) {
       setIsLoading(false)
+
       formRef.current?.reset()
     } finally {
       setIsLoading(false)

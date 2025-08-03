@@ -9,7 +9,7 @@ const openAI = new OpenAI({
 
 export async function generateSummaryFromOpenAI(pdfText: string) {
   try {
-    const completion = await openAI.chat.completions.create({
+    const result = await openAI.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
         {
@@ -25,7 +25,7 @@ export async function generateSummaryFromOpenAI(pdfText: string) {
       max_tokens: 1500
     })
 
-    return completion.choices?.[0]?.message?.content || 'No summary generated.'
+    return result.choices?.[0]?.message?.content || 'No summary generated.'
   } catch (err: any) {
     console.error('OpenAI API Error: ', err)
     if (err?.status === 429) throw new Error('RATE_LIMIT_EXCEEDED')
