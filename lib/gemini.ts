@@ -1,20 +1,14 @@
 import { SUMMARY_SYSTEM_PROMPT } from '@/utils/prompts'
-import { GoogleGenerativeAI } from '@google/generative-ai'
+import { GoogleGenAI } from '@google/genai'
 
-const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '')
-if (!process.env.GEMINI_API_KEY) throw new Error('GEMINI_API_KEY is not defined in environment variables.')
+const gemini = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY
+})
 
 export const generateSummaryFromGemini = async (pdfText: string) => {
   try {
-    const model = gemini.getGenerativeModel({
-      model: 'gemini-1.5-pro-002',
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 1500
-      }
-    })
-
-    const prompt = {
+    const result = await gemini.models.generateContent({
+      model: 'gemini-2.5-flash',
       contents: [
         {
           role: 'user',
@@ -28,13 +22,10 @@ export const generateSummaryFromGemini = async (pdfText: string) => {
           ]
         }
       ]
-    }
-
-    const result = await model.generateContent(prompt)
-    const response = result.response
-    const summary = response.text()
-
+    })
+    const summary = result.text
     if (!summary) throw new Error('Empty response from Gemini API')
+
     return summary
   } catch (err: any) {
     console.error('Gemini API Error: ', err)
