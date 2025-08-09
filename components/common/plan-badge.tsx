@@ -1,27 +1,31 @@
-'use client'
+import { pricingPlans } from '@/utils/contants'
+import { currentUser } from '@clerk/nextjs/server'
+import { Crown } from 'lucide-react'
+import { getPriceIdForActiveUser } from '@/lib/user'
+import { Badge } from '../ui/badge'
+import { cn } from '@/lib/utils'
 
-import { useUser } from '@clerk/nextjs'
-import { useEffect, useState } from 'react'
+export default async function PlanBadge() {
+  const user = await currentUser()
 
-export default function PlanBadge() {
-  const { user, isLoaded } = useUser()
-  const [planName, setPlanName] = useState<string>('')
+  if (!user?.id) return null
 
-  useEffect(() => {
-    if (!isLoaded || !user) return
+  const email = user?.emailAddresses?.[0]?.emailAddress
+  let priceId: string | null = null
 
-    const fetchPlan = async () => {
-      const email = user.emailAddresses[0]?.emailAddress
-      if (!email) return
-      const res = await fetch(`/api/get-user-plan?email=${email}`)
-      const data = await res.json()
-      if (data?.planName) setPlanName(data.planName)
-    }
+  if (email) priceId = await getPriceIdForActiveUser(email)
+  let planName = 'Buy a plan'
+  const plan = pricingPlans.find(plan => plan.priceId === priceId)
 
-    fetchPlan()
-  }, [user, isLoaded])
+  if (plan) planName = plan.name
 
-  if (!planName) return null
-
-  return <div className='text-sm bg-gray-100 px-2 py-1 rounded-md text-gray-700'>{planName}</div>
+  return (
+    <Badge
+      variant='outline'
+      className={cn('ml-2 bg-linear-to-r from-amber-100 to-amber-200 border-amber-300 hidden lg:flex flex-row items-center', !priceId && 'from-red-100 to-red-200 border-red-300')}
+    >
+      <Crown className={cn('w-3 h-3 mr-1 text-amber-600', !priceId && 'text-red-600')} />
+      {planName}
+    </Badge>
+  )
 }
