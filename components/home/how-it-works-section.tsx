@@ -1,11 +1,6 @@
+import { Step } from '@/utils/types'
 import { BrainCircuit, FileOutput, FileText, MoveRight } from 'lucide-react'
-import { ReactNode } from 'react'
-
-type Step = {
-  icon: ReactNode
-  label: String
-  description: string
-}
+import { MotionDiv, MotionH2, MotionH3 } from '../common/motion-wrapper'
 
 const steps: Step[] = [
   {
@@ -40,6 +35,22 @@ const steps: Step[] = [
   }
 ]
 
+const StepItem = ({ icon, label, description }: Step) => (
+  <div className='relative p-6 rounded-2xl bg-white/5 backdrop-blur-xs border border-white/10  hover:border-rose-500/50 transition-colors group w-full'>
+    <div className='flex flex-col gap-4 h-full'>
+      <div className='flex items-center justify-center h-24 w-24 mx-auto rounded-2xl bg-linear-to-br from-rose-500/10 to-transparent group-hover:from-rose-500/20 transition-colors'>
+        <div className='text-rose-500'>{icon}</div>
+      </div>
+
+      <div className='flex flex-col flex-1 gap- justify-between'>
+        <h4 className='text-center font-bold text-xl'>{label}</h4>
+
+        <p className='text-center text-gray-600 text-sm'>{description}</p>
+      </div>
+    </div>
+  </div>
+)
+
 export default function HowItWorksSection() {
   return (
     <section className='relative overflow-hidden bg-gray-50'>
@@ -57,55 +68,57 @@ export default function HowItWorksSection() {
         </div>
 
         <div className='text-center mb-16'>
-          <h2 className='font-bold text-xl uppercase mb-4 text-rose-500'>How it works</h2>
+          <MotionH2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className='font-bold text-xl uppercase mb-4 text-rose-500'
+          >
+            How it works
+          </MotionH2>
 
-          <h3 className='font-bold text-3xl max-w-2xl mx-auto'>Transform any PDF into an easy-to-digest summary in three simple steps</h3>
+          <MotionH3
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.2
+            }}
+            className='font-bold text-3xl max-w-2xl mx-auto'
+          >
+            Transform any PDF into an easy-to-digest summary in three simple steps
+          </MotionH3>
         </div>
+
         <div className='grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto relative'>
           {steps.map((step, idx) => (
-            <div
+            <MotionDiv
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 * idx }}
               className='relative flex items-stretch'
               key={idx}
             >
               <StepItem {...step} />
+
               {idx < steps.length - 1 && (
-                <div className='hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10'>
+                <MotionDiv
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 + 0.3 * idx }}
+                  className='hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10'
+                >
                   <MoveRight
                     size={32}
                     strokeWidth={1}
                     className='text-rose-400'
                   ></MoveRight>
-                </div>
+                </MotionDiv>
               )}
-            </div>
+            </MotionDiv>
           ))}
         </div>
       </div>
     </section>
-  )
-}
-
-function StepItem({ icon, label, description }: Step) {
-  return (
-    <div
-      className='relative p-6 rounded-2xl bg-white/5
-  backdrop-blur-xs border border-white/10 
-  hover:border-rose-500/50 transition-colors group w-full'
-    >
-      <div className='flex flex-col gap-4 h-full'>
-        <div
-          className='flex items-center justify-center h-24 w-24
-      mx-auto rounded-2xl bg-linear-to-br from-rose-500/10
-      to-transparent group-hover:from-rose-500/20
-      transition-colors'
-        >
-          <div className='text-rose-500'>{icon}</div>
-        </div>
-        <div className='flex flex-col flex-1 gap-1 justify-between'>
-          <h4 className='text-center font-bold text-xl'>{label}</h4>
-          <p className='text-center text-gray-600 text-sm'>{description}</p>
-        </div>
-      </div>
-    </div>
   )
 }
