@@ -5,7 +5,7 @@ import { Button } from '../ui/button'
 import { Badge } from '../ui/badge'
 import Link from 'next/link'
 import { MotionDiv, MotionH1, MotionH2, MotionSection, MotionSpan } from '../common/motion-wrapper'
-import { buttonVariants, containerVariants, itemVariants } from '@/utils/constants'
+import { buttonVariants, containerVariants, itemVariants } from '@/utils/animations'
 
 export default function HeroSection() {
   return (

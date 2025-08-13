@@ -1,4 +1,4 @@
-import { SUMMARY_SYSTEM_PROMPT } from '@/utils/prompts'
+import { SUMMARY_SYSTEM_PROMPT } from '@/lib/prompts'
 import { GoogleGenAI } from '@google/genai'
 
 const gemini = new GoogleGenAI({

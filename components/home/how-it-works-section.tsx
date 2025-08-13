@@ -1,6 +1,12 @@
-import { Step } from '@/utils/types'
 import { BrainCircuit, FileOutput, FileText, MoveRight } from 'lucide-react'
 import { MotionDiv, MotionH2, MotionH3 } from '../common/motion-wrapper'
+import { ReactNode } from 'react'
+
+type Step = {
+  icon: ReactNode
+  label: string
+  description: string
+}
 
 const steps: Step[] = [
   {

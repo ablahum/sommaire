@@ -1,11 +1,11 @@
-import { isDev } from './helpers'
+import { isDev } from '@/lib/env'
 
 export const pricingPlans = [
   {
     name: 'Basic',
     price: 9,
     description: 'Perfect for occasional use',
-    items: ['5 PDF summaries per month', 'Standard processing speed', 'Email support'],
+    items: ['3 PDF summaries per month', 'Standard processing speed', 'Email support'],
     id: 'basic',
     paymentLink: isDev ? 'https://buy.stripe.com/test_dRm28kdR76Mm9zWfuA5J600' : '',
     priceId: isDev ? 'price_1RsF8M1TGZU2Ha8SxYCqYNYm' : ''

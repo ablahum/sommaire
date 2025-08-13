@@ -27,6 +27,7 @@ export default function UploadForm() {
 
     onUploadError: err => {
       console.error('error occurred while uploading', err)
+
       toast.error('Error occurred while uploading', {
         description: err.message
       })
@@ -117,8 +118,8 @@ export default function UploadForm() {
   return (
     <div className='flex flex-col gap-8 w-full max-w-2xl mx-auto'>
       <UploadFormInput
-        isLoading={isLoading}
         ref={formRef}
+        isLoading={isLoading}
         onSubmit={handleSubmit}
       />
     </div>

@@ -1,4 +1,4 @@
-import { pricingPlans } from '@/utils/constants'
+import { pricingPlans } from '@/lib/pricing'
 import { getDbConnection } from './db'
 import { getUserUploadCount } from './summaries'
 
