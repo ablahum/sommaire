@@ -10,8 +10,6 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
   const hasActiveSubscription = await hasActivePlan(user.emailAddresses[0].emailAddress)
 
-  console.log({ hasActiveSubscription })
-
   if (!hasActiveSubscription) return <UpgradeRequired />
 
   return <>{children}</>
