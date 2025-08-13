@@ -1,4 +1,4 @@
-import { SUMMARY_SYSTEM_PROMPT } from '@/utils/prompts'
+import { SUMMARY_SYSTEM_PROMPT } from '@/lib/prompts'
 import OpenAI from 'openai'
 
 if (!process.env.OPENAI_API_KEY) throw new Error('Missing OpenAI API key')

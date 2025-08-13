@@ -4,9 +4,9 @@ import { FileText } from 'lucide-react'
 import Link from 'next/link'
 import { Card } from '../ui/card'
 import DeleteButton from './delete-button'
-import { formatFileName } from '@/utils/formatter'
+import { formatFileName } from '@/lib/formatter'
 import { MotionDiv } from '../common/motion-wrapper'
-import { itemVariants } from '@/utils/constants'
+import { itemVariants } from '@/utils/animations'
 
 const SummaryHeader = ({ fileUrl, title, createdAt }: { fileUrl: string; title: string | null; createdAt: string }) => (
   <div className='flex items-center gap-2 sm:gap-4'>
