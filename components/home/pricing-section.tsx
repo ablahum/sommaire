@@ -2,10 +2,10 @@
 
 import { cn } from '@/lib/utils'
 import { containerVariants, itemVariants, listVariants, pricingPlans } from '@/utils/constants'
-import { PriceType } from '@/utils/types'
 import { ArrowRight, CheckIcon } from 'lucide-react'
 import Link from 'next/link'
 import { MotionDiv, MotionSection } from '../common/motion-wrapper'
+import { PriceType } from '@/types/billing'
 
 const PricingCard = ({ name, price, description, items, id, paymentLink }: PriceType) => (
   <MotionDiv
