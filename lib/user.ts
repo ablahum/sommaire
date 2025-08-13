@@ -1,4 +1,4 @@
-import { pricingPlans } from '@/utils/contants'
+import { pricingPlans } from '@/utils/constants'
 import { getDbConnection } from './db'
 import { getUserUploadCount } from './summaries'
 

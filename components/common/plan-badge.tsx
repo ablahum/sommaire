@@ -1,4 +1,4 @@
-import { pricingPlans } from '@/utils/contants'
+import { pricingPlans } from '@/utils/constants'
 import { currentUser } from '@clerk/nextjs/server'
 import { Crown } from 'lucide-react'
 import { getPriceIdForActiveUser } from '@/lib/user'
@@ -7,13 +7,12 @@ import { cn } from '@/lib/utils'
 
 export default async function PlanBadge() {
   const user = await currentUser()
-
   if (!user?.id) return null
 
   const email = user?.emailAddresses?.[0]?.emailAddress
   let priceId: string | null = null
-
   if (email) priceId = await getPriceIdForActiveUser(email)
+
   let planName = 'Buy a plan'
   const plan = pricingPlans.find(plan => plan.priceId === priceId)
 
