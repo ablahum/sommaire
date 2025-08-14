@@ -1,3 +1,4 @@
+import { PdfSummary } from '@/types/summaries'
 import { getDbConnection } from './db'
 
 export async function getSummaries(userId: string) {
@@ -36,6 +37,18 @@ export async function getSummaryById(id: string) {
   }
 }
 
+export async function getSummaryFileUrlById(id: string, userId: string) {
+  const sql = await getDbConnection()
+
+  const [summary] = await sql`
+    SELECT original_file_url
+    FROM pdf_summaries
+    WHERE id = ${id} AND user_id = ${userId}
+  `
+
+  return summary?.original_file_url || null
+}
+
 export async function getUserUploadCount(userId: string) {
   const sql = await getDbConnection()
 
@@ -49,4 +62,36 @@ export async function getUserUploadCount(userId: string) {
     console.error('Error fetching user upload count', err)
     return 0
   }
+}
+
+export async function insertPdfSummary({ userId, fileUrl, summary, title, fileName }: PdfSummary) {
+  const sql = await getDbConnection()
+  const [row] = await sql`
+    INSERT INTO pdf_summaries (
+      user_id,
+      original_file_url,
+      summary_text,
+      title,
+      file_name
+    ) VALUES (
+      ${userId},
+      ${fileUrl},
+      ${summary},
+      ${title},
+      ${fileName}
+    ) RETURNING id, summary_text
+  `
+  return row
+}
+
+export async function deleteSummaryById(id: string, userId: string) {
+  const sql = await getDbConnection()
+
+  const [deletedSummary] = await sql`
+    DELETE FROM pdf_summaries
+    WHERE id = ${id} AND user_id = ${userId}
+    RETURNING id
+  `
+
+  return deletedSummary?.id || null
 }

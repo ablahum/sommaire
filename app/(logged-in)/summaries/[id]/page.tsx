@@ -1,5 +1,4 @@
 import BgGradient from '@/components/common/bg-gradient'
-import { MotionDiv } from '@/components/common/motion-wrapper'
 import { SourceInfo } from '@/components/summaries/source-info'
 import { SummaryHeader } from '@/components/summaries/summary-header'
 import { SummaryViewer } from '@/components/summaries/summary-viewer'
@@ -23,18 +22,13 @@ export default async function SummaryPage(props: { params: Promise<{ id: string 
 
       <div className='container mx-auto flex flex-col gap-4'>
         <div className='px-4 sm:px-6 lg:px-8 py-6 sm:py-12 lg:py-24'>
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className='flex flex-col'
-          >
+          <div className='flex flex-col'>
             <SummaryHeader
               title={title}
               createdAt={created_at}
               readingTime={readingTime.toString()}
             />
-          </MotionDiv>
+          </div>
 
           {file_name && (
             <SourceInfo
@@ -46,12 +40,7 @@ export default async function SummaryPage(props: { params: Promise<{ id: string 
             />
           )}
 
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className='relative mt-4 sm:mt-8 lg:mt-16'
-          >
+          <div className='relative mt-4 sm:mt-8 lg:mt-16'>
             <div className='relative p-4 sm:p-6 lg:p-8 bg-white/80 backdrop-blur-md rounded-2xl sm:rounded-3xl shadow-xl border border-rose-100/30 transition-all duration-300 hover:shadow-2xl hover:bg-white/90 max-w-4xl mx-auto'>
               <div className='absolute inset-0 bg-linear-to-br from-rose-50/50 via-orange-50/30 to-transparent opacity-50 rounded-2xl sm:rounded-3xl' />
 
@@ -65,7 +54,7 @@ export default async function SummaryPage(props: { params: Promise<{ id: string 
                 <SummaryViewer summary={summary.summary_text} />
               </div>
             </div>
-          </MotionDiv>
+          </div>
         </div>
       </div>
     </div>

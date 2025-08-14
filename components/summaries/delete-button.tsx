@@ -1,10 +1,11 @@
 'use client'
+
+import { deleteSummary } from '@/actions/summary-actions'
 import { Trash2 } from 'lucide-react'
+import { useState, useTransition } from 'react'
+import { toast } from 'sonner'
 import { Button } from '../ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
-import { useState, useTransition } from 'react'
-import { deleteSummaryAction } from '@/actions/summary-actions'
-import { toast } from 'sonner'
 
 interface DeleteButtonProps {
   summaryId: string
@@ -16,17 +17,22 @@ export default function DeleteButton({ summaryId }: DeleteButtonProps) {
 
   const handleDelete = async () => {
     startTransition(async () => {
-      const result = await deleteSummaryAction({ summaryId })
+      const result = await deleteSummary({ summaryId })
 
-      if (result?.success) toast.success('Summary deleted successfully')
-      else
-        toast.error('Error', {
-          description: 'Failed to delete summary'
+      if (result?.success) {
+        toast.success('Summary deleted successfully', {
+          description: result.message
         })
+      } else {
+        toast.error('Error', {
+          description: result?.message || 'Failed to delete summary'
+        })
+      }
 
       setOpen(false)
     })
   }
+
   return (
     <Dialog
       open={open}
@@ -46,7 +52,7 @@ export default function DeleteButton({ summaryId }: DeleteButtonProps) {
         <DialogHeader>
           <DialogTitle>Delete Summary</DialogTitle>
 
-          <DialogDescription>Are you sure you want to delete this Summary? This action cannot be undone.</DialogDescription>
+          <DialogDescription>Are you sure you want to delete this Summary? This action will also delete the original PDF file and cannot be undone.</DialogDescription>
         </DialogHeader>
 
         <DialogFooter>

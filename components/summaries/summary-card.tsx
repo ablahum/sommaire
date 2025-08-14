@@ -1,12 +1,10 @@
+import { formatFileName } from '@/lib/formatter'
 import { cn } from '@/lib/utils'
 import { formatDistanceToNow } from 'date-fns'
 import { FileText } from 'lucide-react'
 import Link from 'next/link'
 import { Card } from '../ui/card'
 import DeleteButton from './delete-button'
-import { formatFileName } from '@/lib/formatter'
-import { MotionDiv } from '../common/motion-wrapper'
-import { itemVariants } from '@/utils/animations'
 
 const SummaryHeader = ({ fileUrl, title, createdAt }: { fileUrl: string; title: string | null; createdAt: string }) => (
   <div className='flex items-center gap-2 sm:gap-4'>
@@ -28,18 +26,7 @@ const StatusBadge = ({ status }: { status: string }) => <span className={cn('px-
 
 export default function SummaryCard({ summary }: { summary: any }) {
   return (
-    <MotionDiv
-      variants={itemVariants}
-      initial='hidden'
-      animate='visible'
-      whileHover={{
-        scale: 1.02,
-        transition: {
-          duration: 0.2,
-          ease: 'easeOut'
-        }
-      }}
-    >
+    <>
       <Card className='relative h-full p-0'>
         <div className='absolute top-2 right-2'>
           <DeleteButton summaryId={summary.id} />
@@ -64,6 +51,6 @@ export default function SummaryCard({ summary }: { summary: any }) {
           </div>
         </Link>
       </Card>
-    </MotionDiv>
+    </>
   )
 }

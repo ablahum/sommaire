@@ -1,32 +1,17 @@
 'use server'
 
-import { getDbConnection } from '@/lib/db'
+// import { getDbConnection } from '@/lib/db'
 import { generateSummaryFromGemini } from '@/lib/gemini'
-import { fetchAndExtractPDF } from '@/lib/langchain'
+import { fetchAndExtract } from '@/lib/langchain'
 import { generateSummaryFromOpenAI } from '@/lib/openai'
-import { formatFileNameAsTitle } from '@/utils/format-utils'
+import { PdfSummary } from '@/types/summaries'
+import { formatFileNameAsTitle } from '@/lib/formatter'
 import { auth } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
+import { insertPdfSummary } from '@/lib/summaries'
 
-interface PdfSummary {
-  userId?: string
-  fileUrl: string
-  summary: string
-  title: string
-  fileName: string
-}
-
-// export async function getPDFText({ fileUrl, fileName }: { fileUrl: string; fileName: string }) {
-//   if (!fileUrl) {
-//     return {
-//       success: false,
-//       message: 'File Upload failed',
-//       data: null
-//     }
-//   }
-// }
-
-export async function generatePdfSummary({ fileUrl, fileName }: { fileUrl: string; fileName: string }) {
+// GENERATE THE SUMMARY ----------------------------------
+export async function generateSummary({ fileUrl, fileName }: { fileUrl: string; fileName: string }) {
   if (!fileUrl)
     return {
       success: false,
@@ -35,12 +20,16 @@ export async function generatePdfSummary({ fileUrl, fileName }: { fileUrl: strin
     }
 
   try {
-    const pdfText = await fetchAndExtractPDF(fileUrl)
+    // EXTRACT FILE FROM UPLOADTHING USING LANGCHAIN -----
+    const pdfText = await fetchAndExtract(fileUrl)
     let summary
 
+    // SUMMARIZE FILE USING AI ---------------------------
     try {
+      // gemini api
       summary = await generateSummaryFromGemini(pdfText)
     } catch (err) {
+      // openai api
       console.error('Gemini API Error:', err)
 
       if (err instanceof Error && err.message === 'RATE_LIMIT_EXCEEDED') {
@@ -73,6 +62,7 @@ export async function generatePdfSummary({ fileUrl, fileName }: { fileUrl: strin
         data: null
       }
 
+    // format file name
     const formattedFileName = formatFileNameAsTitle(fileName)
 
     return {
@@ -94,34 +84,8 @@ export async function generatePdfSummary({ fileUrl, fileName }: { fileUrl: strin
   }
 }
 
-async function savePdfSummary({ userId, fileUrl, summary, title, fileName }: PdfSummary) {
-  try {
-    const sql = await getDbConnection()
-
-    const [savedSummary] = await sql`
-      INSERT INTO pdf_summaries (
-        user_id,
-        original_file_url,
-        summary_text,
-        title,
-        file_name
-      ) VALUES (
-        ${userId},
-        ${fileUrl},
-        ${summary},
-        ${title},
-        ${fileName}
-    ) RETURNING id, summary_text`
-
-    return savedSummary
-  } catch (err) {
-    console.error('Error saving PDF Summary', err)
-
-    throw err
-  }
-}
-
-export async function storePdfSummaryAction({ fileUrl, summary, title, fileName }: PdfSummary) {
+// INSERT SUMMARY TO DB ----------------------------------
+export async function storeSummary({ fileUrl, summary, title, fileName }: PdfSummary) {
   let savedSummary: any
 
   try {
@@ -133,7 +97,7 @@ export async function storePdfSummaryAction({ fileUrl, summary, title, fileName 
         message: 'User not found'
       }
 
-    savedSummary = await savePdfSummary({
+    savedSummary = await insertPdfSummary({
       userId,
       fileUrl,
       summary,

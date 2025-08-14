@@ -1,6 +1,6 @@
 import { parseEmojiPoint, parsePoint } from '@/utils/summary-helpers'
 import { MotionDiv } from '../common/motion-wrapper'
-import { containerVariants, itemVariants } from '@/utils/constants'
+import { containerVariants, itemVariants } from '@/utils/animations'
 
 const EmojiPoint = ({ point }: { point: string }) => {
   const { emoji, text } = parseEmojiPoint(point) ?? {}

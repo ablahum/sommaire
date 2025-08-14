@@ -1,12 +1,12 @@
 'use client'
 
+import { generateSummary, storeSummary } from '@/actions/upload-actions'
+import { useUploadThing } from '@/utils/uploadthing'
+import { useRouter } from 'next/navigation'
+import { useRef, useState } from 'react'
+import { toast } from 'sonner'
 import { z } from 'zod'
 import UploadFormInput from './upload-form-input'
-import { useUploadThing } from '@/utils/uploadthing'
-import { toast } from 'sonner'
-import { generatePdfSummary, storePdfSummaryAction } from '@/actions/upload-actions'
-import { useRef, useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 const schema = z.object({
   file: z
@@ -44,8 +44,11 @@ export default function UploadForm() {
     try {
       setIsLoading(true)
 
+      // GET THE FILE ---------------------------------
       const formData = new FormData(e.currentTarget)
       const file = formData.get('file') as File
+
+      // FILE VALIDATION ------------------------------
       const validatedFields = schema.safeParse({ file })
 
       if (!validatedFields.success) {
@@ -61,7 +64,9 @@ export default function UploadForm() {
         description: 'We are Uploading your PDF...'
       })
 
+      // UPLOAD VALIDATED FILE TO UPLOADTHING ---------
       const uploadResponse = await startUpload([file])
+
       if (!uploadResponse || uploadResponse.length === 0) {
         toast.error('❌ Something went wrong', {
           description: 'Please use a different file'
@@ -71,12 +76,14 @@ export default function UploadForm() {
         return
       }
 
+      // PROCESS THE FILE -----------------------------
       toast('📑 Processing PDF', {
         description: 'Hang tight! Our AI is reading through your document! ✨'
       })
 
+      // generate file summary
       const uploadFileUrl = uploadResponse[0].serverData.fileUrl
-      const summary = await generatePdfSummary({
+      const summary = await generateSummary({
         fileUrl: uploadFileUrl,
         fileName: file.name
       })
@@ -90,8 +97,9 @@ export default function UploadForm() {
           description: 'Hang tight! We are Saving your Summary! 💫'
         })
 
+        // save summary to db -------------------------
         if (data.summary) {
-          storeResult = await storePdfSummaryAction({
+          storeResult = await storeSummary({
             summary: data.summary,
             fileUrl: uploadFileUrl,
             title: data.title,
@@ -103,6 +111,8 @@ export default function UploadForm() {
           })
 
           formRef.current?.reset()
+
+          // redirect to summary page
           router.push(`/summaries/${storeResult.data.id}`)
         }
       }
