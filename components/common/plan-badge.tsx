@@ -1,9 +1,9 @@
-import { pricingPlans } from '@/utils/constants'
 import { currentUser } from '@clerk/nextjs/server'
 import { Crown } from 'lucide-react'
 import { getPriceIdForActiveUser } from '@/lib/user'
 import { Badge } from '../ui/badge'
 import { cn } from '@/lib/utils'
+import { pricingPlans } from '@/lib/pricing'
 
 export default async function PlanBadge() {
   const user = await currentUser()
