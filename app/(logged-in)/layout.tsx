@@ -1,5 +1,5 @@
 import UpgradeRequired from '@/components/common/upgrade-required'
-import { hasActivePlan } from '@/lib/user'
+import { hasActivePlan } from '@/lib/billing'
 import { currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 

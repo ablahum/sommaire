@@ -1,14 +1,13 @@
 'use server'
 
-// import { getDbConnection } from '@/lib/db'
+import { formatFileNameAsTitle } from '@/lib/formatter'
 import { generateSummaryFromGemini } from '@/lib/gemini'
 import { fetchAndExtract } from '@/lib/langchain'
 import { generateSummaryFromOpenAI } from '@/lib/openai'
+import { insertPdfSummary } from '@/lib/summaries'
 import { PdfSummary } from '@/types/summaries'
-import { formatFileNameAsTitle } from '@/lib/formatter'
 import { auth } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
-import { insertPdfSummary } from '@/lib/summaries'
 
 // GENERATE THE SUMMARY ----------------------------------
 export async function generateSummary({ fileUrl, fileName }: { fileUrl: string; fileName: string }) {
