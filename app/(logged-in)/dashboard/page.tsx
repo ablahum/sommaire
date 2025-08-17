@@ -4,7 +4,7 @@ import SummaryCard from '@/components/summaries/summary-card'
 
 import { Button } from '@/components/ui/button'
 import { getSummaries } from '@/lib/summaries'
-import { hasReachedUploadLimit } from '@/lib/user'
+import { hasReachedUploadLimit } from '@/lib/limits'
 import { currentUser } from '@clerk/nextjs/server'
 import { ArrowRight, Plus } from 'lucide-react'
 import Link from 'next/link'
@@ -15,7 +15,11 @@ export default async function Page() {
   const userId = user?.id
 
   if (!userId) return redirect('/sign-in')
+
+  // CHECK IF USER HAS REACHED THEIR LIMIT --------------
   const { hasReachedLimit, uploadLimit } = await hasReachedUploadLimit(userId)
+
+  // GET SUMMARIES --------------------------------------
   const summaries = await getSummaries(userId)
 
   return (

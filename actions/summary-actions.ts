@@ -7,6 +7,7 @@ import { UTApi } from 'uploadthing/server'
 
 const utAPI = new UTApi()
 
+// DELETE FILE FROM UPLOADTHING --------------------------
 async function deleteFile(fileUrl: string) {
   try {
     const url = new URL(fileUrl)
@@ -19,13 +20,14 @@ async function deleteFile(fileUrl: string) {
     await utAPI.deleteFiles([fileKey])
 
     return true
-  } catch (error) {
-    console.error('Error deleting file from UploadThing:', error)
+  } catch (err) {
+    console.error('Error deleting file from UploadThing:', err)
 
     return false
   }
 }
 
+// DELETE SUMMARY FROM DB -------------------------------
 export async function deleteSummary({ summaryId }: { summaryId: string }) {
   try {
     const user = await currentUser()

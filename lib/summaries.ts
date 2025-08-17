@@ -3,6 +3,7 @@ import { getDbConnection } from './db'
 
 export async function getSummaries(userId: string) {
   const sql = await getDbConnection()
+
   const summaries = await sql`SELECT * from pdf_summaries
     WHERE user_id=${userId}
     ORDER BY created_at DESC`
@@ -27,7 +28,7 @@ export async function getSummaryById(id: string) {
       file_name,
       LENGTH(summary_text)-LENGTH(REPLACE(summary_text,' ',' '))+1 as word_count
       FROM pdf_summaries
-      where id=${id}
+      where id = ${id}
     `
     return summary
   } catch (err) {

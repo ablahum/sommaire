@@ -21,9 +21,7 @@ export default function UploadForm() {
   const router = useRouter()
 
   const { startUpload, routeConfig } = useUploadThing('pdfUploader', {
-    onClientUploadComplete: () => {
-      console.log('uploaded successfully!')
-    },
+    onClientUploadComplete: () => {},
 
     onUploadError: err => {
       console.error('error occurred while uploading', err)
@@ -33,9 +31,7 @@ export default function UploadForm() {
       })
     },
 
-    onUploadBegin: data => {
-      console.log('upload has begun for', data)
-    }
+    onUploadBegin: data => {}
   })
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
