@@ -4,9 +4,11 @@ import { getDbConnection } from './db'
 export async function getSummaries(userId: string) {
   const sql = await getDbConnection()
 
-  const summaries = await sql`SELECT * from pdf_summaries
-    WHERE user_id=${userId}
-    ORDER BY created_at DESC`
+  const summaries = await sql`
+      SELECT * from pdf_summaries
+      WHERE user_id = ${userId}
+      ORDER BY created_at DESC
+    `
 
   return summaries
 }
@@ -32,7 +34,7 @@ export async function getSummaryById(id: string) {
     `
     return summary
   } catch (err) {
-    console.log('Error fetching Summary by id', err)
+    console.error('Error fetching Summary by id', err)
 
     return null
   }
@@ -65,7 +67,13 @@ export async function getUserUploadCount(userId: string) {
   }
 }
 
-export async function insertPdfSummary({ userId, fileUrl, summary, title, fileName }: PdfSummary) {
+export async function insertPdfSummary({
+  userId,
+  fileUrl,
+  summary,
+  title,
+  fileName,
+}: PdfSummary) {
   const sql = await getDbConnection()
   const [row] = await sql`
     INSERT INTO pdf_summaries (

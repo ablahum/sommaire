@@ -13,9 +13,13 @@ async function deleteFile(fileUrl: string) {
     const url = new URL(fileUrl)
     const segments = url.pathname.split('/').filter(Boolean)
     const fileIndex = segments.findIndex(seg => seg === 'f')
-    const fileKey = fileIndex !== -1 && segments[fileIndex + 1] ? segments[fileIndex + 1] : segments.at(-1)
+    const fileKey =
+      fileIndex !== -1 && segments[fileIndex + 1]
+        ? segments[fileIndex + 1]
+        : segments.at(-1)
 
-    if (!fileKey) throw new Error('Unable to parse UploadThing file key from URL')
+    if (!fileKey)
+      throw new Error('Unable to parse UploadThing file key from URL')
 
     await utAPI.deleteFiles([fileKey])
 
@@ -44,13 +48,16 @@ export async function deleteSummary({ summaryId }: { summaryId: string }) {
       revalidatePath('/dashboard')
       return {
         success: true,
-        message: uploadThingDelete ? 'Summary and file deleted successfully' : 'Summary deleted, but file deletion failed'
+        message: uploadThingDelete
+          ? 'Summary and file deleted successfully'
+          : 'Summary deleted, but file deletion failed',
       }
     }
 
     return { success: false, message: 'Failed to delete summary' }
   } catch (err) {
-    console.log('Error Deleting Summary', err)
+    console.error('Error Deleting Summary', err)
+
     return { success: false, message: 'Error deleting summary' }
   }
 }
