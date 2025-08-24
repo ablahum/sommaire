@@ -21,7 +21,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <ClerkProvider>
       <html lang='en'>
-        <body className={`${fontSans.variable} font-sans antialiased`}>
+        {/* <body className={`${fontSans.variable} font-sans antialiased`}> */}
+        <body className={`font-sans antialiased`}>
           <div className='relative flex min-h-screen flex-col'>
             <Header />
 
