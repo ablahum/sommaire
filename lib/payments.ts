@@ -1,7 +1,21 @@
 import Stripe from 'stripe'
 import { getDbConnection } from './db'
 
-async function createOrUpdateUser({ sql, email, full_name, customerId, priceId, status }: { sql: any; email: string; full_name: string; customerId: string; priceId: string; status: string }) {
+async function createOrUpdateUser({
+  sql,
+  email,
+  full_name,
+  customerId,
+  priceId,
+  status,
+}: {
+  sql: any
+  email: string
+  full_name: string
+  customerId: string
+  priceId: string
+  status: string
+}) {
   try {
     const user = await sql`
       SELECT *
@@ -43,7 +57,17 @@ async function createOrUpdateUser({ sql, email, full_name, customerId, priceId, 
   }
 }
 
-async function createPayment({ sql, session, priceId, user_email }: { sql: any; session: Stripe.Checkout.Session; priceId: string; user_email: string }) {
+async function createPayment({
+  sql,
+  session,
+  priceId,
+  user_email,
+}: {
+  sql: any
+  session: Stripe.Checkout.Session
+  priceId: string
+  user_email: string
+}) {
   try {
     const { amount_total, id, status } = session
 
@@ -69,9 +93,13 @@ async function createPayment({ sql, session, priceId, user_email }: { sql: any; 
   }
 }
 
-export async function handleCheckoutSessionCompleted({ session, stripe }: { session: Stripe.Checkout.Session; stripe: Stripe }) {
-  console.log('Checkout session completed:', session.id)
-
+export async function handleCheckoutSessionCompleted({
+  session,
+  stripe,
+}: {
+  session: Stripe.Checkout.Session
+  stripe: Stripe
+}) {
   const customerId = session.customer as string
   const customer = await stripe.customers.retrieve(customerId)
   const priceId = session.line_items?.data[0]?.price?.id
@@ -86,21 +114,25 @@ export async function handleCheckoutSessionCompleted({ session, stripe }: { sess
       full_name: name as string,
       customerId,
       priceId: priceId as string,
-      status: 'active'
+      status: 'active',
     })
 
     await createPayment({
       sql,
       session,
       priceId: priceId as string,
-      user_email: email as string
+      user_email: email as string,
     })
   }
 }
 
-export async function handleSubscriptionDeleted({ subscriptionId, stripe }: { subscriptionId: string; stripe: Stripe }) {
-  console.log('Subscription deleted:', subscriptionId)
-
+export async function handleSubscriptionDeleted({
+  subscriptionId,
+  stripe,
+}: {
+  subscriptionId: string
+  stripe: Stripe
+}) {
   try {
     const subscription = await stripe.subscriptions.retrieve(subscriptionId)
     const sql = await getDbConnection()
@@ -111,8 +143,6 @@ export async function handleSubscriptionDeleted({ subscriptionId, stripe }: { su
         status = 'inactive'
       WHERE customer_id = ${subscription.customer}
     `
-
-    console.log('Subscription cancelled successfully')
   } catch (err) {
     console.error('Error handling subscription deletion:', err)
 

@@ -1,4 +1,7 @@
-import { handleCheckoutSessionCompleted, handleSubscriptionDeleted } from '@/lib/payments'
+import {
+  handleCheckoutSessionCompleted,
+  handleSubscriptionDeleted,
+} from '@/lib/payments'
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
@@ -17,9 +20,9 @@ export const POST = async (req: NextRequest) => {
       case 'checkout.session.completed':
         const sessionId = event.data.object.id
         const session = await stripe.checkout.sessions.retrieve(sessionId, {
-          expand: ['line_items']
+          expand: ['line_items'],
         })
-        
+
         await handleCheckoutSessionCompleted({ session, stripe })
         break
       case 'customer.subscription.deleted':
@@ -28,24 +31,23 @@ export const POST = async (req: NextRequest) => {
 
         await handleSubscriptionDeleted({ subscriptionId, stripe })
 
-        console.log(`Subscription deleted: ${subscription.id}`)
         break
       default:
         console.log(`Unhandled event type: ${event.type}`)
     }
   } catch (err) {
-    console.log(err)
+    console.error(err)
 
     return NextResponse.json(
       {
         error: 'Failed to trigger Webhook',
-        err
+        err,
       },
-      { status: 400 }
+      { status: 400 },
     )
   }
 
   return NextResponse.json({
-    status: 'success'
+    status: 'success',
   })
 }
