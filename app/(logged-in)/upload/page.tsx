@@ -10,7 +10,7 @@ export default async function Page() {
   if (!user?.id) redirect('/sign-in')
   const userId = user.id
 
-  const { hasReachedLimit } = await hasReachedUploadLimit(userId)
+  const { hasReachedLimit } = await hasReachedUploadLimit(user.emailAddresses[0].emailAddress, userId)
   if (hasReachedLimit) redirect('/dashboard')
 
   return (

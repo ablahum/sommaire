@@ -52,7 +52,7 @@ export async function getSummaryFileUrlById(id: string, userId: string) {
   return summary?.original_file_url || null
 }
 
-export async function getUserUploadCount(userId: string) {
+export async function getUserUploadCount(userId: string | null) {
   const sql = await getDbConnection()
 
   try {
@@ -67,13 +67,7 @@ export async function getUserUploadCount(userId: string) {
   }
 }
 
-export async function insertPdfSummary({
-  userId,
-  fileUrl,
-  summary,
-  title,
-  fileName,
-}: PdfSummary) {
+export async function insertPdfSummary({ userId, fileUrl, summary, title, fileName }: PdfSummary) {
   const sql = await getDbConnection()
   const [row] = await sql`
     INSERT INTO pdf_summaries (
