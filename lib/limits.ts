@@ -2,10 +2,10 @@ import { pricingPlans } from '@/lib/pricing'
 import { getUserUploadCount } from './summaries'
 import { getPriceIdForActiveUser } from './billing'
 
-export async function hasReachedUploadLimit(userId: string) {
+export async function hasReachedUploadLimit(email: string, userId: string | null = null) {
   try {
     const uploadCount = await getUserUploadCount(userId)
-    const priceId = await getPriceIdForActiveUser(userId)
+    const priceId = await getPriceIdForActiveUser(email)
     const isPro = pricingPlans.find(plan => plan.priceId === priceId)?.id === 'pro'
     const uploadLimit: number = isPro ? 1000 : 3
 

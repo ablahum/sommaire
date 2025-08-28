@@ -10,7 +10,7 @@ export default async function PlanBadge() {
   if (!user?.id) return null
 
   let priceId: string | null = null
-  priceId = await getPriceIdForActiveUser(user.id)
+  priceId = await getPriceIdForActiveUser(user.emailAddresses[0].emailAddress)
 
   let planName = 'Buy a plan'
   const plan = pricingPlans.find(plan => plan.priceId === priceId)

@@ -17,7 +17,7 @@ export default async function Page() {
   if (!userId) return redirect('/sign-in')
 
   // CHECK IF USER HAS REACHED THEIR LIMIT --------------
-  const { hasReachedLimit, uploadLimit } = await hasReachedUploadLimit(userId)
+  const { hasReachedLimit, uploadLimit } = await hasReachedUploadLimit(user.emailAddresses[0].emailAddress, userId)
 
   // GET SUMMARIES --------------------------------------
   const summaries = await getSummaries(userId)

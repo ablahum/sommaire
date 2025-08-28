@@ -1,13 +1,13 @@
 import { getDbConnection } from './db'
 
-export async function getPriceIdForActiveUser(userId: string) {
+export async function getPriceIdForActiveUser(email: string) {
   const sql = await getDbConnection()
 
   try {
     const [query] = await sql`
       SELECT price_id
       FROM users
-      WHERE id = ${userId}
+      WHERE email = ${email}
       AND status = 'active'
     `
 
