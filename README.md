@@ -48,17 +48,18 @@ npm install
 ```
 
 ### Environment Setup
-Make sure you have the following credentials ready and added to your .env file:
+Create a `.env.local` file in the root of the project with the following keys:
 ```
-DATABASE_URL=your_supabase_postgresql_url
-DIRECT_URL=your_supabase_postgresql_direct_url
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_frontend_key
-CLERK_SECRET_KEY=your_clerk_secret_key
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_ROLE_KEY=your_supabase_role_key
-XENDIT_MONEY_IN_KEY=your_xendit_money_in_key
-XENDIT_WEBHOOK_TOKEN=your_xendit_webhook_token
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NODE_ENV=development
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_cGxlYXNlZC1wYXJyb3QtNTUuY2xlcmsuYWNjb3VudHMuZGV2JA
+CLERK_SECRET_KEY=sk_test_acbOOxX5sE8Bt7qmsAAY2gc6K59tbrM6tgEvobrnZc
+UPLOADTHING_TOKEN=your_uploadthing_token_here
+OPENAI_API_KEY=your_openai_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
+DATABASE_URL=your_neondb_connection_url_here
+STRIPE_SECRET_KEY=your_stripe_secret_key_here
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret_here
 ```
 
 ### Running the App
@@ -72,13 +73,13 @@ The app will be available at http://localhost:3000.
   <summary>A glimpse of screenshots of the apps</summary>
 
   ### Home page
-  ![home](https://github.com/ablahum/sommaire/blob/main/server/public/assets/home.png)
+  ![home](https://github.com/ablahum/sommaire/blob/main/public/home.png)
   ### Upload page
-  ![upload](https://github.com/ablahum/sommaire/blob/main/server/public/assets/upload.png)
+  ![upload](https://github.com/ablahum/sommaire/blob/main/public/upload.png)
   ### Dashboard page
-  ![dashboard](https://github.com/ablahum/sommaire/blob/main/server/public/assets/dashboard.png)
+  ![dashboard](https://github.com/ablahum/sommaire/blob/main/public/dashboard.png)
   ### Summary page
-  ![summary](https://github.com/ablahum/sommaire/blob/main/server/public/assets/summary.png)
+  ![summary](https://github.com/ablahum/sommaire/blob/main/public/summary.png)
 </details>
 
 ## 📬 Contact
