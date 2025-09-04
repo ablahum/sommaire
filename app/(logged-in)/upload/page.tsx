@@ -7,20 +7,23 @@ import { redirect } from 'next/navigation'
 
 export default async function Page() {
   const user = await currentUser()
+
   if (!user?.id) redirect('/sign-in')
   const userId = user.id
 
-  const { hasReachedLimit } = await hasReachedUploadLimit(user.emailAddresses[0].emailAddress, userId)
+  const { hasReachedLimit } = await hasReachedUploadLimit(
+    user.emailAddresses[0].emailAddress,
+    userId,
+  )
   if (hasReachedLimit) redirect('/dashboard')
 
   return (
     <section className='min-h-screen'>
       <BgGradient />
 
-      <div className='mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8'>
-        <div className='flex flex-col items-center justify-center gap-6 text-center'>
+      <div className='mx-auto max-w-7xl lg:py-48 md:py-36 py-24 px-4'>
+        <div className='flex flex-col items-center justify-center gap-8 text-center'>
           <UploadHeader />
-
           <UploadForm />
         </div>
       </div>

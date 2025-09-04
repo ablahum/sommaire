@@ -5,10 +5,7 @@ import PlanBadge from './plan-badge'
 
 export default function Header() {
   return (
-    <nav
-      className='container flex items-center justify-between
-    py-4 lg:px-8 px-2 mx-auto'
-    >
+    <nav className='container flex items-center justify-between py-4 lg:px-8 px-2 mx-auto'>
       <div className='flex lg:flex-1'>
         <NavLink
           href='/'
@@ -16,7 +13,9 @@ export default function Header() {
         >
           <FileText className='w-5 h-5 lg:w-8 lg:h-8 text-gray-900 hover:rotate-12 transform transition duration-200 ease-in-out' />
 
-          <span className='font-extrabold lg:text-xl text-gray-900'>Sommaire</span>
+          <span className='font-extrabold lg:text-xl text-gray-900'>
+            Sommaire
+          </span>
         </NavLink>
       </div>
 

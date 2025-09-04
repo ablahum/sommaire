@@ -5,14 +5,27 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 
-export default function NavLink({ href, children, className }: { href: string; children: React.ReactNode; className?: string }) {
+export default function NavLink({
+  href,
+  children,
+  className,
+}: {
+  href: string
+  children: React.ReactNode
+  className?: string
+}) {
   const pathName = usePathname()
-  const isActive = pathName === href || (href !== '/' && pathName.startsWith(href))
+  const isActive =
+    pathName === href || (href !== '/' && pathName.startsWith(href))
 
   return (
     <Link
       href={href}
-      className={cn('transition-colors text-sm duration-200 text-gray-600 hover:text-rose-500', className, isActive && 'text-rose-500')}
+      className={cn(
+        'transition-colors text-sm duration-200 text-gray-600 hover:text-cyan-600',
+        className,
+        isActive && 'text-cyan-600 font-medium',
+      )}
     >
       {children}
     </Link>
