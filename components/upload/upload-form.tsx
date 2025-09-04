@@ -11,8 +11,14 @@ import UploadFormInput from './upload-form-input'
 const schema = z.object({
   file: z
     .instanceof(File, { message: 'Invalid file' })
-    .refine(file => file.size <= 20 * 1024 * 1024, 'File size must be less than 20MB')
-    .refine(file => file.type.startsWith('application/pdf'), 'File must be a PDF')
+    .refine(
+      file => file.size <= 20 * 1024 * 1024,
+      'File size must be less than 20MB',
+    )
+    .refine(
+      file => file.type.startsWith('application/pdf'),
+      'File must be a PDF',
+    ),
 })
 
 export default function UploadForm() {
@@ -27,11 +33,11 @@ export default function UploadForm() {
       console.error('error occurred while uploading', err)
 
       toast.error('Error occurred while uploading', {
-        description: err.message
+        description: err.message,
       })
     },
 
-    onUploadBegin: data => {}
+    onUploadBegin: data => {},
   })
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -49,7 +55,9 @@ export default function UploadForm() {
 
       if (!validatedFields.success) {
         toast.error('❌ Something went wrong', {
-          description: validatedFields.error.flatten().fieldErrors.file?.[0] ?? 'Invalid file'
+          description:
+            validatedFields.error.flatten().fieldErrors.file?.[0] ??
+            'Invalid file',
         })
 
         setIsLoading(false)
@@ -57,7 +65,7 @@ export default function UploadForm() {
       }
 
       toast('📑 Uploading PDF', {
-        description: 'We are Uploading your PDF...'
+        description: 'We are Uploading your PDF...',
       })
 
       // UPLOAD VALIDATED FILE TO UPLOADTHING ---------
@@ -65,7 +73,7 @@ export default function UploadForm() {
 
       if (!uploadResponse || uploadResponse.length === 0) {
         toast.error('❌ Something went wrong', {
-          description: 'Please use a different file'
+          description: 'Please use a different file',
         })
 
         setIsLoading(false)
@@ -74,14 +82,14 @@ export default function UploadForm() {
 
       // PROCESS THE FILE -----------------------------
       toast('📑 Processing PDF', {
-        description: 'Hang tight! Our AI is reading through your document! ✨'
+        description: 'Hang tight! Our AI is reading through your document! ✨',
       })
 
       // generate file summary
       const uploadFileUrl = uploadResponse[0].serverData.fileUrl
       const summary = await generateSummary({
         fileUrl: uploadFileUrl,
-        fileName: file.name
+        fileName: file.name,
       })
 
       const { data = null, message = null } = summary || {}
@@ -90,7 +98,7 @@ export default function UploadForm() {
         let storeResult: any
 
         toast('📑 Saving PDF', {
-          description: 'Hang tight! We are Saving your Summary! 💫'
+          description: 'Hang tight! We are Saving your Summary! 💫',
         })
 
         // save summary to db -------------------------
@@ -99,11 +107,12 @@ export default function UploadForm() {
             summary: data.summary,
             fileUrl: uploadFileUrl,
             title: data.title,
-            fileName: file.name
+            fileName: file.name,
           })
 
           toast('🤩 Summary Generated', {
-            description: 'Your PDF has been successfully summarized and saved! 💫'
+            description:
+              'Your PDF has been successfully summarized and saved! 💫',
           })
 
           formRef.current?.reset()

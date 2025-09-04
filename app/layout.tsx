@@ -9,15 +9,18 @@ import { Toaster } from '@/components/ui/sonner'
 const fontSans = FontSans({
   variable: '--font-sans',
   subsets: ['latin'],
-  weight: ['200', '300', '400', '500', '600', '700', '800', '900']
+  weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
 })
 
 export const metadata: Metadata = {
   title: 'Sommaire - AI-Powered PDF Summarization',
-  description: 'Save hours of reading time. Transform lengthy PDFs into clear, accurate summaries in seconds with our advanced AI technology.'
+  description:
+    'Save hours of reading time. Transform lengthy PDFs into clear, accurate summaries in seconds with our advanced AI technology.',
 }
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <ClerkProvider>
       <html lang='en'>

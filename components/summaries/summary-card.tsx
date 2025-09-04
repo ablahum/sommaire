@@ -6,28 +6,49 @@ import Link from 'next/link'
 import { Card } from '../ui/card'
 import DeleteButton from './delete-button'
 
-const SummaryHeader = ({ fileUrl, title, createdAt }: { fileUrl: string; title: string | null; createdAt: string }) => (
+const SummaryHeader = ({
+  fileUrl,
+  title,
+  createdAt,
+}: {
+  fileUrl: string
+  title: string | null
+  createdAt: string
+}) => (
   <div className='flex items-center gap-2 sm:gap-4'>
-    <FileText className='w-6 h-6 sm:w-8 sm:h-8 text-rose-400' />
+    <FileText className='w-6 h-6 sm:w-8 sm:h-8 text-cyan-600' />
 
     <div className='flex-1 min-w-0'>
-      <h3 className='text-base xl:text-lg font-semibold text-gray-900 truncate w-4/5'>{title || formatFileName(fileUrl)}</h3>
+      <h3 className='text-base xl:text-lg font-semibold text-gray-900 truncate w-4/5'>
+        {title || formatFileName(fileUrl)}
+      </h3>
 
       <p className='text-sm text-gray-500'>
         {formatDistanceToNow(new Date(createdAt), {
-          addSuffix: true
+          addSuffix: true,
         })}
       </p>
     </div>
   </div>
 )
 
-const StatusBadge = ({ status }: { status: string }) => <span className={cn('px-3 py-1 text-xs font-medium rounded-full capitalize', status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800')}>{status}</span>
+const StatusBadge = ({ status }: { status: string }) => (
+  <span
+    className={cn(
+      'px-3 py-1 text-xs font-medium rounded-full capitalize',
+      status === 'completed'
+        ? 'bg-green-100 text-green-800'
+        : 'bg-yellow-100 text-yellow-800',
+    )}
+  >
+    {status}
+  </span>
+)
 
 export default function SummaryCard({ summary }: { summary: any }) {
   return (
     <>
-      <Card className='relative h-full p-0'>
+      <Card className='relative h-full p-0 hover:scale-105 transition-all'>
         <div className='absolute top-2 right-2'>
           <DeleteButton summaryId={summary.id} />
         </div>
@@ -43,7 +64,9 @@ export default function SummaryCard({ summary }: { summary: any }) {
               createdAt={summary.created_at}
             />
 
-            <p className='text-gray-600 line-clamp-2 text-sm sm:text-base'>{summary.summary_text}</p>
+            <p className='text-gray-600 line-clamp-2 text-sm sm:text-base'>
+              {summary.summary_text}
+            </p>
 
             <div className='flex justify-between items-center'>
               <StatusBadge status={summary.status} />

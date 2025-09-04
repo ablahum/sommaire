@@ -11,13 +11,16 @@ interface UploadFormInputProps {
   isLoading: boolean
 }
 
-export const UploadFormInput = forwardRef<HTMLFormElement, UploadFormInputProps>(({ onSubmit, isLoading }, ref) => (
+export const UploadFormInput = forwardRef<
+  HTMLFormElement,
+  UploadFormInputProps
+>(({ onSubmit, isLoading }, ref) => (
   <form
     ref={ref}
     className='flex flex-col gap-6'
     onSubmit={onSubmit}
   >
-    <div className='flex justify-end items-center min-[400px]:gap-1.5 gap-2 min-[400px]:flex-row flex-col'>
+    <div className='flex justify-end items-center gap-4 min-[400px]:flex-row flex-col'>
       <Input
         id='file'
         type='file'
@@ -30,7 +33,7 @@ export const UploadFormInput = forwardRef<HTMLFormElement, UploadFormInputProps>
 
       <Button
         disabled={isLoading}
-        className='w-full min-[400px]:w-auto bg-gradient-to-r  from-slate-900 to-rose-500 hover:from-rose-500 hover:to-slate-900 hover:text-white text-white transition-all duration-300'
+        className='bg-linear-to-r from-cyan-600 to-cyan-800 hover:from-cyan-800 hover:to-cyan-600 hover:scale-105 transition-all duration-300 group hover:no-underline'
       >
         {isLoading ? (
           <>
