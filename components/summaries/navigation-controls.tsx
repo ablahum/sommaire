@@ -7,7 +7,7 @@ export function NavigationControls({
   totalSections,
   onPrevious,
   onNext,
-  onSectionSelect
+  onSectionSelect,
 }: {
   currentSection: number
   totalSections: number
@@ -16,16 +16,21 @@ export function NavigationControls({
   onSectionSelect: (index: number) => void
 }) {
   return (
-    <div className='absolute bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-sm border-t border-rose-500/10'>
+    <div className='absolute bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-sm border-t border-cyan-500/10'>
       <div className='flex justify-between items-center'>
         <Button
           variant='ghost'
           size='icon'
           onClick={onPrevious}
           disabled={currentSection === 0}
-          className={cn('rounded-full w-12 h-12 transition-all duration-200 bg-linear-to-br from-rose-500 to-rose-600 backdrop-blur-xs border border-rose-500/10', currentSection === 0 ? 'opacity-50' : 'hover:bg-rose-500/20')}
+          className={cn(
+            'rounded-full w-12 h-12 bg-linear-to-r from-cyan-600 to-cyan-800 hover:from-cyan-800 hover:to-cyan-600 hover:scale-105 transition-all duration-300 group hover:no-underline',
+            currentSection === 0
+              ? 'opacity-50'
+              : 'hover:scale-105 transition-all duration-300',
+          )}
         >
-          <ChevronLeft className='h-6 w-6' />
+          <ChevronLeft className='h-6 w-6 text-white' />
         </Button>
 
         <div className='flex gap-2'>
@@ -33,7 +38,12 @@ export function NavigationControls({
             <button
               key={index}
               onClick={() => onSectionSelect(index)}
-              className={cn('w-2 h-2 rounded-full transition-all duration-300', currentSection === index ? 'bg-linear-to-r from-rose-500 to-rose-600' : 'bg-rose-500/20 hover:bg-rose-500/30')}
+              className={cn(
+                'w-2 h-2 rounded-full transition-all duration-300',
+                currentSection === index
+                  ? 'bg-linear-to-r from-cyan-500 to-cyan-600'
+                  : 'bg-cyan-500/20 hover:bg-cyan-500/30',
+              )}
             />
           ))}
         </div>
@@ -44,11 +54,13 @@ export function NavigationControls({
           onClick={onNext}
           disabled={currentSection === totalSections - 1}
           className={cn(
-            'rounded-full w-12 h-12 transition-all duration-200 bg-linear-to-br from-rose-500 to-rose-600 backdrop-blur-xs border border-rose-500/10',
-            currentSection === totalSections - 1 ? 'opacity-50' : 'hover:bg-rose-500/20'
+            'rounded-full w-12 h-12 bg-linear-to-r from-cyan-600 to-cyan-800 hover:from-cyan-800 hover:to-cyan-600 hover:scale-105 transition-all duration-300 group hover:no-underline',
+            currentSection === totalSections - 1
+              ? 'opacity-50'
+              : 'hover:scale-105 transition-all duration-300',
           )}
         >
-          <ChevronRight className='h-6 w-6' />
+          <ChevronRight className='h-6 w-6 text-white' />
         </Button>
       </div>
     </div>

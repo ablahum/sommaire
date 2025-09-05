@@ -17,7 +17,7 @@ const steps: Step[] = [
       />
     ),
     label: 'Upload your PDF',
-    description: 'Simply drag and drop your PDF document or click to upload'
+    description: 'Simply drag and drop your PDF document or click to upload',
   },
   {
     icon: (
@@ -27,7 +27,8 @@ const steps: Step[] = [
       />
     ),
     label: 'AI Analysis',
-    description: 'Our Advanced AI processes and analyzes your document instantly'
+    description:
+      'Our Advanced AI processes and analyzes your document instantly',
   },
   {
     icon: (
@@ -37,15 +38,15 @@ const steps: Step[] = [
       />
     ),
     label: 'Get Summary',
-    description: 'Receive a clear, concise summary of your document'
-  }
+    description: 'Receive a clear, concise summary of your document',
+  },
 ]
 
 const StepItem = ({ icon, label, description }: Step) => (
-  <div className='relative p-6 rounded-2xl bg-white/5 backdrop-blur-xs border border-white/10  hover:border-rose-500/50 transition-colors group w-full'>
+  <div className='relative p-6 rounded-2xl bg-white/5 backdrop-blur-xs border border-white/10  hover:border-cyan-600/50 transition-colors group w-full'>
     <div className='flex flex-col gap-4 h-full'>
-      <div className='flex items-center justify-center h-24 w-24 mx-auto rounded-2xl bg-linear-to-br from-rose-500/10 to-transparent group-hover:from-rose-500/20 transition-colors'>
-        <div className='text-rose-500'>{icon}</div>
+      <div className='flex items-center justify-center h-24 w-24 mx-auto rounded-2xl bg-linear-to-br from-cyan-600/10 to-transparent group-hover:from-cyan-600/20 transition-colors'>
+        <div className='text-cyan-600'>{icon}</div>
       </div>
 
       <div className='flex flex-col flex-1 gap- justify-between'>
@@ -66,9 +67,10 @@ export default function HowItWorksSection() {
           className='pointer-events-none absolute inset-0 -z-10 transform-gpu overflow-hidden blur-3xl'
         >
           <div
-            className='relative left-[calc(50%+3rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 bg-linear-to-br from-emerald-500 via-teal-500 to-cyan-500 opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]'
+            className='relative left-[calc(50%+3rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 bg-linear-to-br from-emerald-500 via-teal-500 to-cyan-600 opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]'
             style={{
-              clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)'
+              clipPath:
+                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
             }}
           />
         </div>
@@ -78,7 +80,7 @@ export default function HowItWorksSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className='font-bold text-xl uppercase mb-4 text-rose-500'
+            className='font-bold text-xl uppercase mb-4 text-cyan-600'
           >
             How it works
           </MotionH2>
@@ -88,11 +90,12 @@ export default function HowItWorksSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{
               duration: 0.5,
-              delay: 0.2
+              delay: 0.2,
             }}
             className='font-bold text-3xl max-w-2xl mx-auto'
           >
-            Transform any PDF into an easy-to-digest summary in three simple steps
+            Transform any PDF into an easy-to-digest summary in three simple
+            steps
           </MotionH3>
         </div>
 
@@ -117,7 +120,7 @@ export default function HowItWorksSection() {
                   <MoveRight
                     size={32}
                     strokeWidth={1}
-                    className='text-rose-400'
+                    className='text-cyan-400'
                   ></MoveRight>
                 </MotionDiv>
               )}

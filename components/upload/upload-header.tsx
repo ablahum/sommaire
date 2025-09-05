@@ -6,7 +6,7 @@ export function UploadHeader() {
     <div className='flex flex-col items-center justify-center gap-4 text-center'>
       <div className='relative p-[1px] overflow-hidden rounded-full bg-linear-to-r from-cyan-200 via-cyan-600 to-cyan-800 animate-gradient-x group'>
         <Badge
-          variant={'secondary'}
+          variant='secondary'
           className='relative sm:px-6 px-2 py-2 text-base font-medium bg-white rounded-full group-hover:bg-gray-50 transition-colors duration-200 gap-2'
         >
           <Sparkles className='h-8 w-8 text-cyan-600 animate-pulse'></Sparkles>

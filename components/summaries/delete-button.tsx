@@ -48,7 +48,7 @@ export default function DeleteButton({ summaryId }: DeleteButtonProps) {
     >
       <DialogTrigger asChild>
         <Button
-          variant={'ghost'}
+          variant='ghost'
           size='icon'
           className='text-cyan-600 bg-white hover:text-white hover:bg-rose-500 hover:outline-rose-200'
         >

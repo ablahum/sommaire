@@ -21,7 +21,7 @@ export default async function Page() {
     <section className='min-h-screen'>
       <BgGradient />
 
-      <div className='mx-auto max-w-7xl lg:py-48 md:py-36 py-24 px-4'>
+      <div className='container max-w-7xl lg:py-48 md:py-36 py-24 px-4'>
         <div className='flex flex-col items-center justify-center gap-8 text-center'>
           <UploadHeader />
           <UploadForm />
