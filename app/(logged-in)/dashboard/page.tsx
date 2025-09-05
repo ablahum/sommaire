@@ -27,10 +27,10 @@ export default async function Page() {
 
   return (
     <main className='min-h-screen'>
-      <BgGradient className='from-emerald-200 via-teal-200 to-cyan-200' />
+      <BgGradient />
 
-      <div className='container mx-auto flex flex-col gap-4'>
-        <div className='px-4 py-12 sm:py-24'>
+      <div className='container flex flex-col gap-4'>
+        <div className='px-4 py-12 sm:py-24 flex flex-col gap-8'>
           <div className='flex gap-4 justify-between items-center'>
             <div className='flex flex-col gap-2'>
               <h1 className='text-4xl font-bold tracking-tight bg-linear-to-r from-cyan-600 to-gray-900 bg-clip-text text-transparent'>
@@ -45,7 +45,7 @@ export default async function Page() {
             {!hasReachedLimit && (
               <div className='flex-start'>
                 <Button
-                  variant={'link'}
+                  variant='link'
                   className='bg-linear-to-r from-cyan-600 to-cyan-800 hover:from-cyan-800 hover:to-cyan-600 hover:scale-105 transition-all duration-300 group hover:no-underline'
                 >
                   <Link

@@ -28,7 +28,7 @@ export async function getSummaryById(id: string) {
       updated_at,
       status,
       file_name,
-      LENGTH(summary_text)-LENGTH(REPLACE(summary_text,' ',' '))+1 as word_count
+      LENGTH(summary_text) - LENGTH(REPLACE(summary_text, ' ', '')) + 1 as word_count
       FROM pdf_summaries
       where id = ${id}
     `
@@ -67,7 +67,13 @@ export async function getUserUploadCount(userId: string | null) {
   }
 }
 
-export async function insertPdfSummary({ userId, fileUrl, summary, title, fileName }: PdfSummary) {
+export async function insertPdfSummary({
+  userId,
+  fileUrl,
+  summary,
+  title,
+  fileName,
+}: PdfSummary) {
   const sql = await getDbConnection()
   const [row] = await sql`
     INSERT INTO pdf_summaries (

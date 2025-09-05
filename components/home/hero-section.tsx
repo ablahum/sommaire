@@ -4,8 +4,18 @@ import { ArrowRight, Sparkles } from 'lucide-react'
 import { Button } from '../ui/button'
 import { Badge } from '../ui/badge'
 import Link from 'next/link'
-import { MotionDiv, MotionH1, MotionH2, MotionSection, MotionSpan } from '../common/motion-wrapper'
-import { buttonVariants, containerVariants, itemVariants } from '@/utils/animations'
+import {
+  MotionDiv,
+  MotionH1,
+  MotionH2,
+  MotionSection,
+  MotionSpan,
+} from '../common/motion-wrapper'
+import {
+  buttonVariants,
+  containerVariants,
+  itemVariants,
+} from '@/utils/animations'
 
 export default function HeroSection() {
   return (
@@ -17,15 +27,15 @@ export default function HeroSection() {
     >
       <MotionDiv
         variants={itemVariants}
-        className='relative p-[1px] overflow-hidden rounded-full bg-linear-to-r from-rose-200 via-rose-500 to-rose-800 animate-gradient-x group'
+        className='relative p-[1px] overflow-hidden rounded-full bg-linear-to-r from-cyan-200 via-cyan-500 to-cyan-800 animate-gradient-x group'
       >
         <Badge
           variant={'secondary'}
           className='relative px-6 py-2 text-base font-medium bg-white rounded-full group-hover:bg-gray-50 transition-colors duration-200'
         >
-          <Sparkles className='h-8 w-8 mr-2 text-rose-600 animate-pulse'></Sparkles>
+          <Sparkles className='h-8 w-8 mr-2 text-cyan-600 animate-pulse'></Sparkles>
 
-          <p className='text-base text-rose-600'>Powered by AI</p>
+          <p className='text-base text-cyan-600'>Powered by AI</p>
         </Badge>
       </MotionDiv>
 
@@ -42,7 +52,7 @@ export default function HeroSection() {
             concise
           </MotionSpan>
           <span
-            className='absolute inset-0 bg-rose-200/50 -rotate-2 rounded-lg transform -skew-y-1'
+            className='absolute inset-0 bg-cyan-200/50 -rotate-2 rounded-lg transform -skew-y-1'
             aria-hidden='true'
           ></span>
         </span>{' '}
@@ -62,7 +72,7 @@ export default function HeroSection() {
       >
         <Button
           variant={'link'}
-          className='text-white mt-6 text-base sm:text-lg lg:text-xl rounded-full px-8 sm:px-10 lg:px-12 py-6 sm:py-7 lg:py-8 lg:mt-16 bg-linear-to-r from-slate-900 to-rose-500 hover:from-rose-500 hover:to-slate-900 hover:no-underline font-bold shadow-lg transition-all duration-300'
+          className='text-white mt-6 text-base sm:text-lg lg:text-xl rounded-full px-8 sm:px-10 lg:px-12 py-6 sm:py-7 lg:py-8 lg:mt-16 bg-linear-to-r from-slate-900 to-cyan-500 hover:from-cyan-500 hover:to-slate-900 hover:no-underline font-bold shadow-lg transition-all duration-300'
         >
           <Link
             href='/#pricing'
