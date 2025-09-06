@@ -30,8 +30,6 @@ export default function UploadForm() {
     onClientUploadComplete: () => {},
 
     onUploadError: err => {
-      console.error('error occurred while uploading', err)
-
       toast.error('Error occurred while uploading', {
         description: err.message,
       })
