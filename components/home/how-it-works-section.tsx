@@ -1,6 +1,6 @@
 import { BrainCircuit, FileOutput, FileText, MoveRight } from 'lucide-react'
-import { MotionDiv, MotionH2, MotionH3 } from '../common/motion-wrapper'
 import { ReactNode } from 'react'
+import { MotionDiv, MotionH2, MotionH3 } from '../common/motion-wrapper'
 
 type Step = {
   icon: ReactNode
@@ -43,16 +43,16 @@ const steps: Step[] = [
 ]
 
 const StepItem = ({ icon, label, description }: Step) => (
-  <div className='relative p-6 rounded-2xl bg-white/5 backdrop-blur-xs border border-white/10  hover:border-cyan-600/50 transition-colors group w-full'>
-    <div className='flex flex-col gap-4 h-full'>
-      <div className='flex items-center justify-center h-24 w-24 mx-auto rounded-2xl bg-linear-to-br from-cyan-600/10 to-transparent group-hover:from-cyan-600/20 transition-colors'>
+  <div className='relative p-6 rounded-2xl bg-white/5 backdrop-blur-xs border border-white/10  hover:border-cyan-600 transition-colors group w-full'>
+    <div className='flex flex-col justify-center items-center gap-4 h-full'>
+      <div className='flex items-center justify-center h-24 w-24 rounded-2xl bg-linear-to-t from-cyan-600/10 to-transparent group-hover:from-cyan-600/20 transition-colors'>
         <div className='text-cyan-600'>{icon}</div>
       </div>
 
-      <div className='flex flex-col flex-1 gap- justify-between'>
+      <div className='flex flex-col flex-1 gap-2 justify-between'>
         <h4 className='text-center font-bold text-xl'>{label}</h4>
 
-        <p className='text-center text-gray-600 text-sm'>{description}</p>
+        <p className='text-center text-gray-600'>{description}</p>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@ const StepItem = ({ icon, label, description }: Step) => (
 export default function HowItWorksSection() {
   return (
     <section className='relative overflow-hidden bg-gray-50'>
-      <div className='py-12 lg:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8'>
+      <div className='py-12 lg:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8'>
         <div
           aria-hidden='true'
           className='pointer-events-none absolute inset-0 -z-10 transform-gpu overflow-hidden blur-3xl'
@@ -75,12 +75,12 @@ export default function HowItWorksSection() {
           />
         </div>
 
-        <div className='text-center mb-16'>
+        <div className='text-center flex flex-col items-center gap-2'>
           <MotionH2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className='font-bold text-xl uppercase mb-4 text-cyan-600'
+            className='uppercase font-bold tracking-wider text-xl text-cyan-600'
           >
             How it works
           </MotionH2>
@@ -92,7 +92,7 @@ export default function HowItWorksSection() {
               duration: 0.5,
               delay: 0.2,
             }}
-            className='font-bold text-3xl max-w-2xl mx-auto'
+            className='font-bold text-3xl max-w-2xl'
           >
             Transform any PDF into an easy-to-digest summary in three simple
             steps

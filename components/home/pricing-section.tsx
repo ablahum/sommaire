@@ -1,6 +1,8 @@
 'use client'
 
+import { pricingPlans } from '@/lib/pricing'
 import { cn } from '@/lib/utils'
+import { PriceType } from '@/types/billing'
 import {
   containerVariants,
   itemVariants,
@@ -9,8 +11,6 @@ import {
 import { ArrowRight, CheckIcon } from 'lucide-react'
 import Link from 'next/link'
 import { MotionDiv, MotionSection } from '../common/motion-wrapper'
-import { PriceType } from '@/types/billing'
-import { pricingPlans } from '@/lib/pricing'
 
 const PricingCard = ({
   name,
@@ -28,42 +28,39 @@ const PricingCard = ({
   >
     <div
       className={cn(
-        'relative flex flex-col h-full gap-4 lg-gap-8 z-10 p-8 border-[1px] border-gray-500/20 rounded-2xl',
-        id === 'pro' && 'border-cyan-600 gap-5 border-2',
+        'relative flex flex-col h-full gap-4 z-10 p-8 border-2 border-cyan-600 rounded-2xl',
       )}
     >
       <MotionDiv
         variants={listVariants}
         className='flex justify-between items-center gap-4'
       >
-        <div>
+        <div className='flex flex-col gap-2'>
           <p className='text-lg lg:text-xl font-bold capitalize'>{name}</p>
 
-          <p className='text-base-content/80 mt-2'>{description}</p>
+          <p>{description}</p>
         </div>
       </MotionDiv>
 
       <MotionDiv
         variants={listVariants}
-        className='flex gap-2'
+        className='flex gap-2 justify-center'
       >
         <p className='text-5xl tracking-tight font-extrabold'>${price}</p>
 
-        <div className='flex flex-col justify-end mb-[4px]'>
-          <p className='text-xs uppercase font-semibold'>USD</p>
-
-          <p className='text-xs'>/month</p>
+        <div className='flex items-center'>
+          <p className='text-sm'>/month</p>
         </div>
       </MotionDiv>
 
       <MotionDiv
         variants={listVariants}
-        className='space-y-2.5 leading-relaxed text-base flex-1'
+        className='space-y-2.5 leading-relaxed text-base flex-1 flex flex-col gap-2'
       >
         {items.map((item, idx) => (
           <li
             key={idx}
-            className='flex items-center gap-2'
+            className='flex items-center gap-2 m-0'
           >
             <CheckIcon size={18} />
 
@@ -101,12 +98,12 @@ export default function PricingSection() {
       className='relative overflow-hidden'
       id='pricing'
     >
-      <div className='py-12 lg:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 lg:pt-12'>
+      <div className='py-12 lg:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8'>
         <MotionDiv
           variants={itemVariants}
-          className='flex items-center justify-center w-full pb-12'
+          className='flex items-center justify-center w-full'
         >
-          <h2 className='uppercase font-bold text-xl mb-8 text-cyan-600'>
+          <h2 className='uppercase font-bold tracking-wider text-xl text-cyan-600'>
             Pricing
           </h2>
         </MotionDiv>

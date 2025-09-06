@@ -4,15 +4,15 @@ import { Button } from '../ui/button'
 
 export default function CTASection() {
   return (
-    <section className='bg-gray-50 py-12'>
+    <section className='bg-gray-50'>
       <div className='py-12 lg:py-24 max-w-5xl mx-auto  px-4 sm:px-6 lg:px-8'>
-        <div className='flex flex-col items justify-center space-y-4 text-center'>
-          <div className='space-y-2'>
-            <h2 className='text-3xl font tracking-tighter  sm:text-4xl md:text-5xl'>
+        <div className='flex flex-col items gap-8 justify-center space-y-4 text-center'>
+          <div className='space-y-2 flex flex-col items-center gap-2 mb-0'>
+            <h2 className='text-2xl tracking-tighter sm:text-3xl md:text-4xl font-bold m-0 bg-linear-to-r from-cyan-600 to-gray-900 bg-clip-text text-transparent leading-tight'>
               Ready to Save Hours of Reading Time?
             </h2>
 
-            <p className='mx-auto max-w-[700px text-gray-500 md:text-xl md:leading-relaxed lg:text-base lg:leading-relaxed xl:text-xl xl:leading-relaxed dark:text-gray-400'>
+            <p className='max-w-[700px] text-gray-600 md:text-xl md:leading-relaxed lg:leading-relaxed xl:leading-relaxed dark:text-gray-400'>
               Transforming lengthy documents into clear, actionable insights
               starts with our AI-powered summarizer.
             </p>
@@ -22,14 +22,14 @@ export default function CTASection() {
             <div>
               <Button
                 size='lg'
-                variant={'link'}
+                variant='link'
                 className='w-full min-[400px]:w-auto bg-gradient-to-r bg-linear-to-r from-cyan-600 to-cyan-800 hover:from-cyan-800 hover:to-cyan-600 hover:scale-105 transition-all duration-300 group hover:no-underline text-white'
               >
                 <Link
-                  href='/#pricing'
+                  href='/dashboard'
                   className='flex items-center justify-center'
                 >
-                  Get Started{' '}
+                  Get Started
                   <ArrowRight className='ml-2 h-4 w-4 animate-pulse' />
                 </Link>
               </Button>
