@@ -54,36 +54,51 @@ export default function UploadForm() {
       const validatedFields = schema.safeParse({ file })
 
       if (!validatedFields.success) {
-        toast.error('❌ Something went wrong', {
-          description:
-            validatedFields.error.flatten().fieldErrors.file?.[0] ??
-            'Invalid file',
-        })
+        toast.custom(() => (
+          <div className='text-gray-600 bg-linear-to-tl from-cyan-600/50 to-white p-4 rounded-xl flex flex-col gap-2'>
+            <div className='font-semibold'>❌ Something went wrong</div>
+            <div className='text-sm'>
+              {validatedFields.error.flatten().fieldErrors.file?.[0] ??
+                'Invalid file'}
+            </div>
+          </div>
+        ))
 
         setIsLoading(false)
         return
       }
 
-      toast('📑 Uploading PDF', {
-        description: 'We are Uploading your PDF...',
-      })
+      toast.custom(() => (
+        <div className='text-gray-600 bg-linear-to-tl from-cyan-600/50 to-white p-4 rounded-xl flex flex-col gap-2'>
+          <div className='font-semibold'>📑 Uploading PDF</div>
+          <div className='text-sm'>We are Uploading your PDF...</div>
+        </div>
+      ))
 
       // UPLOAD VALIDATED FILE TO UPLOADTHING ---------
       const uploadResponse = await startUpload([file])
 
       if (!uploadResponse || uploadResponse.length === 0) {
-        toast.error('❌ Something went wrong', {
-          description: 'Please use a different file',
-        })
+        toast.custom(() => (
+          <div className='text-gray-600 bg-linear-to-tl from-cyan-600/50 to-white p-4 rounded-xl flex flex-col gap-2'>
+            <div className='font-semibold'>❌ Something went wrong</div>
+            <div className='text-sm'>Please use a different file</div>
+          </div>
+        ))
 
         setIsLoading(false)
         return
       }
 
       // PROCESS THE FILE -----------------------------
-      toast('📑 Processing PDF', {
-        description: 'Hang tight! Our AI is reading through your document! ✨',
-      })
+      toast.custom(() => (
+        <div className='text-gray-600 bg-linear-to-tl from-cyan-600/50 to-white p-4 rounded-xl flex flex-col gap-2'>
+          <div className='font-semibold'>📑 Processing PDF...</div>
+          <div className='text-sm'>
+            Hang tight! Our AI is reading through your document! ✨
+          </div>
+        </div>
+      ))
 
       // generate file summary
       const uploadFileUrl = uploadResponse[0].serverData.fileUrl
@@ -97,9 +112,14 @@ export default function UploadForm() {
       if (data) {
         let storeResult: any
 
-        toast('📑 Saving PDF', {
-          description: 'Hang tight! We are Saving your Summary! 💫',
-        })
+        toast.custom(() => (
+          <div className='text-gray-600 bg-linear-to-tl from-cyan-600/50 to-white p-4 rounded-xl flex flex-col gap-2'>
+            <div className='font-semibold'>📑 Saving PDF...</div>
+            <div className='text-sm'>
+              Hang tight! We are Saving your Summary! 💫
+            </div>
+          </div>
+        ))
 
         // save summary to db -------------------------
         if (data.summary) {
@@ -110,10 +130,14 @@ export default function UploadForm() {
             fileName: file.name,
           })
 
-          toast('🤩 Summary Generated', {
-            description:
-              'Your PDF has been successfully summarized and saved! 💫',
-          })
+          toast.custom(() => (
+            <div className='text-gray-600 bg-linear-to-tl from-cyan-600/50 to-white p-4 rounded-xl flex flex-col gap-2'>
+              <div className='font-semibold'>🤩 Summary Generated</div>
+              <div className='text-sm'>
+                Your PDF has been successfully summarized and saved! 💫
+              </div>
+            </div>
+          ))
 
           formRef.current?.reset()
 
