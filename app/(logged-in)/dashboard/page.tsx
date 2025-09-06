@@ -3,24 +3,17 @@ import EmptySummaryState from '@/components/summaries/empty-summary-state'
 import SummaryCard from '@/components/summaries/summary-card'
 
 import { Button } from '@/components/ui/button'
-import { getSummaries } from '@/lib/summaries'
 import { hasReachedUploadLimit } from '@/lib/limits'
-import { currentUser } from '@clerk/nextjs/server'
+import { getSummaries } from '@/lib/summaries'
 import { ArrowRight, Plus } from 'lucide-react'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
 
 export default async function Page() {
-  const user = await currentUser()
-  const userId = user?.id
-
-  if (!userId) return redirect('/sign-in')
+  const userId = 'user_30drthVvapnRdw1VWejcY70wGwe'
+  const userEmail = 'ablahum@gmail.com'
 
   // CHECK IF USER HAS REACHED THEIR LIMIT --------------
-  const { hasReachedLimit, uploadLimit } = await hasReachedUploadLimit(
-    user.emailAddresses[0].emailAddress,
-    userId,
-  )
+  const { hasReachedLimit, uploadLimit } = await hasReachedUploadLimit(userEmail, userId)
 
   // GET SUMMARIES --------------------------------------
   const summaries = await getSummaries(userId)
@@ -33,13 +26,9 @@ export default async function Page() {
         <div className='px-4 py-12 sm:py-24 flex flex-col gap-8'>
           <div className='flex gap-4 justify-between items-center'>
             <div className='flex flex-col gap-2'>
-              <h1 className='text-4xl font-bold tracking-tight bg-linear-to-r from-cyan-600 to-gray-900 bg-clip-text text-transparent'>
-                Your Summaries
-              </h1>
+              <h1 className='text-4xl font-bold tracking-tight bg-linear-to-r from-cyan-600 to-gray-900 bg-clip-text text-transparent'>Your Summaries</h1>
 
-              <p className='text-gray-600'>
-                Transform your PDFs into concise, actionable insights
-              </p>
+              <p className='text-gray-600'>Transform your PDFs into concise, actionable insights</p>
             </div>
 
             {!hasReachedLimit && (
@@ -64,14 +53,12 @@ export default async function Page() {
             <div className='mb-6'>
               <div className='bg-rose-50 border border-rose-200 rounded-lg p-4 text-rose-800'>
                 <p className='text-sm'>
-                  You've reached the limit of {uploadLimit} uploads on the Basic
-                  plan.{' '}
+                  You've reached the limit of {uploadLimit} uploads on the Basic plan.{' '}
                   <Link
                     href='/#pricing'
                     className='text-rose-800 underline font-medium underline-offset-4 inline-flex items-center'
                   >
-                    Click here to upgrade to Pro{' '}
-                    <ArrowRight className='w-4 h-4 inline-block' />
+                    Click here to upgrade to Pro <ArrowRight className='w-4 h-4 inline-block' />
                   </Link>{' '}
                   for unlimited uploads.
                 </p>

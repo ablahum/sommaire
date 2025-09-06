@@ -6,7 +6,6 @@ import { fetchAndExtract } from '@/lib/langchain'
 import { generateSummaryFromOpenAI } from '@/lib/openai'
 import { insertPdfSummary } from '@/lib/summaries'
 import { PdfSummary } from '@/types/summaries'
-import { auth } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
 
 // GENERATE THE SUMMARY ----------------------------------
@@ -88,7 +87,7 @@ export async function storeSummary({ fileUrl, summary, title, fileName }: PdfSum
   let savedSummary: any
 
   try {
-    const { userId } = await auth()
+    const userId = 'user_30drthVvapnRdw1VWejcY70wGwe'
 
     if (!userId)
       return {

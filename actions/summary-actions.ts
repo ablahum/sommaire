@@ -1,7 +1,6 @@
 'use server'
 
 import { deleteSummaryById, getSummaryFileUrlById } from '@/lib/summaries'
-import { currentUser } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
 import { UTApi } from 'uploadthing/server'
 
@@ -13,13 +12,9 @@ async function deleteFile(fileUrl: string) {
     const url = new URL(fileUrl)
     const segments = url.pathname.split('/').filter(Boolean)
     const fileIndex = segments.findIndex(seg => seg === 'f')
-    const fileKey =
-      fileIndex !== -1 && segments[fileIndex + 1]
-        ? segments[fileIndex + 1]
-        : segments.at(-1)
+    const fileKey = fileIndex !== -1 && segments[fileIndex + 1] ? segments[fileIndex + 1] : segments.at(-1)
 
-    if (!fileKey)
-      throw new Error('Unable to parse UploadThing file key from URL')
+    if (!fileKey) throw new Error('Unable to parse UploadThing file key from URL')
 
     await utAPI.deleteFiles([fileKey])
 
@@ -34,8 +29,8 @@ async function deleteFile(fileUrl: string) {
 // DELETE SUMMARY FROM DB -------------------------------
 export async function deleteSummary({ summaryId }: { summaryId: string }) {
   try {
-    const user = await currentUser()
-    const userId = user?.id
+    const userId = 'user_30drthVvapnRdw1VWejcY70wGwe'
+
     if (!userId) throw new Error('User not found')
 
     const fileUrl = await getSummaryFileUrlById(summaryId, userId)
@@ -48,9 +43,7 @@ export async function deleteSummary({ summaryId }: { summaryId: string }) {
       revalidatePath('/dashboard')
       return {
         success: true,
-        message: uploadThingDelete
-          ? 'Summary and file deleted successfully'
-          : 'Summary deleted, but file deletion failed',
+        message: uploadThingDelete ? 'Summary and file deleted successfully' : 'Summary deleted, but file deletion failed'
       }
     }
 
