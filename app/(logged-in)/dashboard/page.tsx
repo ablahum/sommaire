@@ -20,9 +20,7 @@ export default async function Page() {
   )
 
   // GET SUMMARIES --------------------------------------
-  const summaries = await getSummaries(AUTO_LOGIN_USERID)
-
-  console.log('INI SUMMARIES:', summaries)
+  const summaries = await getSummaries(userId)
 
   return (
     <main className='min-h-screen'>
