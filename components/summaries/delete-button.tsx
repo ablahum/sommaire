@@ -28,13 +28,21 @@ export default function DeleteButton({ summaryId }: DeleteButtonProps) {
       const result = await deleteSummary({ summaryId })
 
       if (result?.success) {
-        toast.success('Summary deleted successfully', {
-          description: result.message,
-        })
+        toast.custom(() => (
+          <div className='text-gray-600 bg-linear-to-tl from-cyan-600/50 to-white p-4 rounded-xl flex flex-col gap-2'>
+            <div className='font-semibold'>✅ Summary deleted successfully</div>
+            <div className='text-sm'>{result.message}</div>
+          </div>
+        ))
       } else {
-        toast.error('Error', {
-          description: result?.message || 'Failed to delete summary',
-        })
+        toast.custom(() => (
+          <div className='text-gray-600 bg-linear-to-tl from-cyan-600/50 to-white p-4 rounded-xl flex flex-col gap-2'>
+            <div className='font-semibold'>Error</div>
+            <div className='text-sm'>
+              {result?.message || '❌ Failed to delete summary'}
+            </div>
+          </div>
+        ))
       }
 
       setOpen(false)
