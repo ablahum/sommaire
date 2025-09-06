@@ -3,10 +3,10 @@ import Header from '@/components/common/header'
 import { Toaster } from '@/components/ui/sonner'
 import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
-import { Inter, Poppins } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import './globals.css'
 
-const fontSans = Inter({
+const fontSans = Poppins({
   variable: '--font-sans',
   subsets: ['latin'],
   weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
