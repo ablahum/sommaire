@@ -3,14 +3,15 @@ import EmptySummaryState from '@/components/summaries/empty-summary-state'
 import SummaryCard from '@/components/summaries/summary-card'
 
 import { Button } from '@/components/ui/button'
+import { AUTO_LOGIN_EMAIL, AUTO_LOGIN_USERID } from '@/lib/env'
 import { hasReachedUploadLimit } from '@/lib/limits'
 import { getSummaries } from '@/lib/summaries'
 import { ArrowRight, Plus } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function Page() {
-  const userId = 'user_30drthVvapnRdw1VWejcY70wGwe'
-  const userEmail = 'ablahum@gmail.com'
+  const userId = AUTO_LOGIN_USERID
+  const userEmail = AUTO_LOGIN_EMAIL
 
   // CHECK IF USER HAS REACHED THEIR LIMIT --------------
   const { hasReachedLimit, uploadLimit } = await hasReachedUploadLimit(userEmail, userId)

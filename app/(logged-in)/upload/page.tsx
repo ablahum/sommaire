@@ -1,12 +1,13 @@
 import BgGradient from '@/components/common/bg-gradient'
 import UploadForm from '@/components/upload/upload-form'
 import { UploadHeader } from '@/components/upload/upload-header'
+import { AUTO_LOGIN_EMAIL, AUTO_LOGIN_USERID } from '@/lib/env'
 import { hasReachedUploadLimit } from '@/lib/limits'
 import { redirect } from 'next/navigation'
 
 export default async function Page() {
-  const userId = 'user_30drthVvapnRdw1VWejcY70wGwe'
-  const userEmail = 'ablahum@gmail.com'
+  const userId = AUTO_LOGIN_USERID
+  const userEmail = AUTO_LOGIN_EMAIL
 
   const { hasReachedLimit } = await hasReachedUploadLimit(userEmail, userId)
   if (hasReachedLimit) redirect('/dashboard')

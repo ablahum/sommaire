@@ -1,5 +1,6 @@
 'use server'
 
+import { AUTO_LOGIN_USERID } from '@/lib/env'
 import { formatFileNameAsTitle } from '@/lib/formatter'
 import { generateSummaryFromGemini } from '@/lib/gemini'
 import { fetchAndExtract } from '@/lib/langchain'
@@ -87,7 +88,7 @@ export async function storeSummary({ fileUrl, summary, title, fileName }: PdfSum
   let savedSummary: any
 
   try {
-    const userId = 'user_30drthVvapnRdw1VWejcY70wGwe'
+    const userId = AUTO_LOGIN_USERID
 
     if (!userId)
       return {

@@ -1,5 +1,6 @@
 'use server'
 
+import { AUTO_LOGIN_USERID } from '@/lib/env'
 import { deleteSummaryById, getSummaryFileUrlById } from '@/lib/summaries'
 import { revalidatePath } from 'next/cache'
 import { UTApi } from 'uploadthing/server'
@@ -29,7 +30,7 @@ async function deleteFile(fileUrl: string) {
 // DELETE SUMMARY FROM DB -------------------------------
 export async function deleteSummary({ summaryId }: { summaryId: string }) {
   try {
-    const userId = 'user_30drthVvapnRdw1VWejcY70wGwe'
+    const userId = AUTO_LOGIN_USERID
 
     if (!userId) throw new Error('User not found')
 

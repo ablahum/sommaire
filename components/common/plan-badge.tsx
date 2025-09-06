@@ -3,9 +3,10 @@ import { pricingPlans } from '@/lib/pricing'
 import { cn } from '@/lib/utils'
 import { Crown } from 'lucide-react'
 import { Badge } from '../ui/badge'
+import { AUTO_LOGIN_EMAIL } from '@/lib/env'
 
 export default async function PlanBadge() {
-  const userEmail = 'ablahum@gmail.com'
+  const userEmail = AUTO_LOGIN_EMAIL
 
   let priceId: string | null = null
   priceId = await getPriceIdForActiveUser(userEmail)

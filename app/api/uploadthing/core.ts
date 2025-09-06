@@ -1,3 +1,4 @@
+import { AUTO_LOGIN_USERID } from '@/lib/env'
 import { createUploadthing, type FileRouter } from 'uploadthing/next'
 
 const file = createUploadthing()
@@ -6,7 +7,7 @@ const file = createUploadthing()
 export const ourFileRouter = {
   pdfUploader: file({ pdf: { maxFileSize: '32MB' } })
     .middleware(async ({ req }) => {
-      const userId = 'user_30drthVvapnRdw1VWejcY70wGwe'
+      const userId = AUTO_LOGIN_USERID
 
       return { userId }
     })
