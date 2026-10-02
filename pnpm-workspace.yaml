@@ -1,0 +1,6 @@
+allowBuilds:
+  '@clerk/shared': false
+  '@google/genai': false
+  msgpackr-extract: false
+  protobufjs: false
+  unrs-resolver: false
